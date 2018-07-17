@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('', 'ManageController@index');
+Route::post('', 'ManageController@validateBankAccounts');
