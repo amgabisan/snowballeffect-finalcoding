@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\BankAccount;
+use Illuminate\Http\UploadedFile;
 
 class ManageController extends Controller
 {
@@ -14,9 +15,16 @@ class ManageController extends Controller
         return view('manage.index', compact('model'));
     }
 
-    public function validateBankAccounts()
+    public function validateBankAccounts(Request $request)
     {
-        dd(request('csvFile'));
+        $request->validate([
+            'csvFile' => 'required|mimes:csv,txt',
+
+        ], [
+            'csvFile.mimes' => 'Please upload CSV file, other files are not supported.'
+        ]);
+        $file = $request->file('csvFile');
+        dd($file->getMimeType());
     }
 
 
